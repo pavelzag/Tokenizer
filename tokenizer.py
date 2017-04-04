@@ -2,14 +2,13 @@ import paramiko
 
 port = 22
 username = 'root'
-password = '<ADD HERE THE PASSWORD>'
+password = '<INSERT YOUR PASSWORD>'
 command1 = 'oc get -n management-infra sa/management-admin ' \
            '--template=\'{{range .secrets}}{{printf "%s\\n" .name}}{{end}}\''
 
 
 def get_parameters(command, hostname):
     s = paramiko.SSHClient()
-    s.load_system_host_keys()
     s.set_missing_host_key_policy(paramiko.AutoAddPolicy())
     s.connect(hostname, port, username, password)
     (stdin, stdout, stderr) = s.exec_command(command)
